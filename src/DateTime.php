@@ -501,4 +501,57 @@ class DateTime extends \DateTime{
 		
 	}
 	
+	/**
+	 * @param DateTime|null $comparable
+	 * @return bool
+	 */
+	public function isToday(DateTime $comparable = null){
+		if(!$comparable){
+			$comparable = new DateTime();
+		}
+		return $this->getAbsoluteDays() === $comparable->getAbsoluteDays();
+	}
+	
+	/**
+	 * @param DateTime|null $comparable
+	 * @return bool
+	 */
+	public function isYesterday(DateTime $comparable = null){
+		if(!$comparable){
+			$comparable = new DateTime();
+		}
+		return ($this->getAbsoluteDays()+1) === $comparable->getAbsoluteDays();
+	}
+	
+	/**
+	 * @param DateTime|null $comparable
+	 * @return bool
+	 */
+	public function isTomorrow(DateTime $comparable = null){
+		if(!$comparable){
+			$comparable = new DateTime();
+		}
+		return $this->getAbsoluteDays() === ($comparable->getAbsoluteDays()+1);
+	}
+	
+	public function getAbsoluteDays(){
+		return ($this->getYearNum() * 365) + ($this->getDayInYear());
+	}
+	
+	public function getAbsoluteHours(){
+		return ($this->getAbsoluteDays() * 24) + $this->getHours();
+	}
+	
+	public function getAbsoluteWeeks(){
+		return ($this->getYearNum() * 42) + ($this->getWeekInYear());
+	}
+	
+	public function getAbsoluteSeconds(){
+		return $this->getTimestamp();
+	}
+	
+	public function getAbsoluteYears(){
+		return $this->getYearNum();
+	}
+	
 }
