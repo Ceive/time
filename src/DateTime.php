@@ -74,6 +74,52 @@ class DateTime extends \DateTime{
 	
 	
 	/**
+	 * @param $monthId
+	 * @param null $type
+	 * @return mixed
+	 */
+	public static function invertMonthIdentifier($monthId, $type = null){
+		$a = [
+			'january',
+			'february',
+			'march',
+			'april',
+			'may',
+			'june',
+			'jule',
+			'august',
+			'september',
+			'october',
+			'november',
+			'december',
+		];
+		
+		if($type){
+			
+			switch($type){
+				case 'integer':
+					if(is_numeric($monthId)){
+						return $monthId;
+					}
+					break;
+				case 'string':
+					if(!is_numeric($monthId)){
+						return $monthId;
+					}
+					break;
+			}
+			
+		}
+		
+		if(is_numeric($monthId)){
+			return $a[$monthId];
+		}
+		
+		return array_search($monthId, $a, true);
+	}
+	
+	
+	/**
 	 * @return int
 	 */
 	public function getMonthDayNum(){
